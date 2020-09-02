@@ -67,15 +67,19 @@ Coordinates: [RowLetter (string, a - h), ColumnNumber(int, 0 - 8)]
 
 ## Game
 
-| Index | Field       | Type          |
-| ----- | ----------- | ------------- |
-| PK    | gameID      | `string`      |
-| FK    | moves       | `Array<Move>` |
-|       | boardState  | `Board`       |
-|       | isCheck     | `boolean`     |
-|       | isCheckMate | `boolean`     |
-|       | nextPlayer  | `PlayerID`    |
-|       | version     | `int`         |
+| Index | Field       | Type            |
+| ----- | ----------- | --------------- |
+| PK    | gameID      | `string`        |
+| FK    | moves       | `Array<moveID>` |
+|       | boardState  | `Board`         |
+|       | isCheck     | `boolean`       |
+|       | isCheckMate | `boolean`       |
+|       | nextPlayer  | `PlayerID`      |
+|       | version     | `int`           |
+
+### Relations
+
+One `Game` to Zero or Many `Moves`
 
 ## Move
 
@@ -89,6 +93,10 @@ Coordinates: [RowLetter (string, a - h), ColumnNumber(int, 0 - 8)]
 |       | oldCoordinates  | `Coordinates` |
 |       | newCoordinates  | `Coordinates` |
 |       | version         | `int`         |
+
+### Relations
+
+Zero or Many `Moves` to one `Game`
 
 # Initial Architecture & Sequences
 
