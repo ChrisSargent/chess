@@ -1,8 +1,8 @@
 # Introduction
 
-A proof-of-concept to create a two player, real-time chess game using the following components:
+A proof-of-concept to create a two player, replayable, real-time chess game using the following components:
 
-- A web-based UI writte in the React framework
+- A web-based UI written in the React framework
 - A Socket.io middleware to enable real-time web-based communication
 - A Filemaker Pro database and REST API for storing game state
 
@@ -12,7 +12,7 @@ A proof-of-concept to create a two player, real-time chess game using the follow
 - Two player game in remote web browsers
 - Drag & drop interface
 - Front end move validation (to provide immediate user feedback)
-- Details of each move changeset should be save so that the board can be 'replayable', with a versioned board state history
+- Details of each move changeset should be save so that the board can be replayed, with a versioned board state history. Replaying each move from an empty state, should always product the same final board state
 - Only the latest current state of the board is stored (to minimise storage requirements)
 
 # Responsibilities
