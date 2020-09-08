@@ -1,0 +1,35 @@
+##########
+# If adding to this file, think about updating .eslintignore too
+##########
+
+# General #
+##########
+build/
+coverage/
+dist/
+vars/
+vendor/
+
+# Amplify #
+##########
+
+# Ignore all in the amplify folder except schema
+amplify/*
+!amplify/backend/
+
+amplify/backend/*
+!amplify/backend/api
+
+amplify/backend/api/*
+!amplify/backend/api/blockgraph
+
+amplify/backend/api/blockgraph/*
+!amplify/backend/api/blockgraph/schema
+# End ignore
+
+aws-exports.js
+awsconfiguration.json
+amplifyconfiguration.json
+amplify-build-config.json
+amplify-gradle-config.json
+amplifytools.xcconfig

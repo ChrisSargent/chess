@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Error Handling Middleware Doesn't alter the function result if there is no error 1`] = `"Original Response"`;
+
+exports[`Error Handling Middleware Returns gateway timeout message from an uncomplete network call 1`] = `
+Object {
+  "error": Object {
+    "source": "blockgraph",
+    "status": 504,
+    "title": "Gateway Timeout",
+  },
+}
+`;
+
+exports[`Error Handling Middleware Returns generic error message if there's an unknown code error 1`] = `
+Object {
+  "error": Object {
+    "source": "blockgraph",
+    "status": 500,
+    "title": "Server Error",
+  },
+}
+`;
+
+exports[`Error Handling Middleware Returns response as is, if included 1`] = `
+Object {
+  "error": Object {
+    "detail": "No identity",
+    "status": 401,
+    "title": "Unauthorised",
+  },
+}
+`;
+
+exports[`Error Handling Middleware Returns response in case of an error inside the error handler - the catch 1`] = `
+Object {
+  "error": Object {
+    "source": "blockgraph",
+    "status": 500,
+    "title": "Server Error",
+  },
+}
+`;
+
+exports[`Error Handling Middleware Returns the error response data from a completed network call 1`] = `
+Object {
+  "error": Object {
+    "status": 401,
+    "title": "User authentication failed: user not found",
+  },
+}
+`;

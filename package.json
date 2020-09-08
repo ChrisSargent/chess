@@ -1,0 +1,22 @@
+{
+  "name": "chess",
+  "version": "1.0.0",
+  "repository": "https://github.com/ChrisSargent/chess.git",
+  "author": "Chris Sargent <chris@stickypixel.com>",
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "amplify:coreinvoke": "cd api && yarn build coreinvoke",
+    "prettier": "prettier .",
+    "start:api": "concurrently --raw \"amplify mock api\" \"cd api && yarn start\"",
+    "start:ui": "cd ui && yarn start"
+  },
+  "devDependencies": {
+    "concurrently": "~5.3.0"
+  },
+  "workspaces": {
+    "packages": [
+      "api"
+    ]
+  }
+}
