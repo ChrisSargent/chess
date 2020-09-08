@@ -1,0 +1,18 @@
+projects:
+  chess:
+    schemaPath: amplify/backend/api/chess/build/schema.graphql
+    includes:
+      - ui/src/graphql/**/*.ts
+    excludes:
+      - ./amplify/**
+    extensions:
+      amplify:
+        codeGenTarget: typescript
+        generatedFileName: ui/src/API.ts
+        docsFilePath: ui/src/graphql
+        region: eu-west-2
+        apiId: null
+        maxDepth: 2
+extensions:
+  amplify:
+    version: 3

@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-chess-dev-161411-authRole",
+      "UnauthRoleArn": "arn:aws:iam::651405476998:role/amplify-chess-dev-161411-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::651405476998:role/amplify-chess-dev-161411-authRole",
+      "Region": "eu-west-2",
+      "DeploymentBucketName": "amplify-chess-dev-161411-deployment",
+      "UnauthRoleName": "amplify-chess-dev-161411-unauthRole",
+      "StackName": "amplify-chess-dev-161411",
+      "StackId": "arn:aws:cloudformation:eu-west-2:651405476998:stack/amplify-chess-dev-161411/92aeff30-f1dd-11ea-832e-065bc1dc5e74",
+      "AmplifyAppId": "d1lk2x59x5q5sf"
+    }
+  }
+}

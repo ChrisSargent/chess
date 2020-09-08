@@ -6,7 +6,7 @@
   "license": "UNLICENSED",
   "private": true,
   "scripts": {
-    "amplify:coreinvoke": "cd api && yarn build coreinvoke",
+    "amplify:chessinvoke": "cd api && yarn build chessinvoke",
     "prettier": "prettier .",
     "start:api": "concurrently --raw \"amplify mock api\" \"cd api && yarn start\"",
     "start:ui": "cd ui && yarn start"

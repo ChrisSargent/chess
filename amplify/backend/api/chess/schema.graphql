@@ -1,0 +1,81 @@
+enum PlayerID {
+  white
+  black
+}
+
+enum PieceType {
+  king
+  queen
+  rook
+  bishop
+  knight
+  pawn
+}
+
+type Piece {
+  type: PieceType!
+  playerID: PlayerID!
+  id: ID!
+}
+input PieceInput {
+  type: PieceType!
+  playerID: PlayerID!
+  id: ID!
+}
+
+type Coords {
+  column: String!
+  row: Int!
+}
+input CoordsInput {
+  column: String!
+  row: Int!
+}
+
+input MoveInput {
+  gameID: ID!
+  playerID: PlayerID!
+  piece: PieceInput!
+  capturedPiece: PieceInput!
+  oldCoords: CoordsInput!
+  newCoords: CoordsInput!
+}
+
+type Move {
+  gameID: ID!
+  playerID: PlayerID!
+  piece: Piece!
+  capturedPieced: Piece!
+  oldCoords: Coords!
+  newCoords: Coords!
+  version: Int!
+}
+
+type Board {
+  a: [Piece!]!
+  b: [Piece!]!
+  c: [Piece!]!
+  d: [Piece!]!
+  e: [Piece!]!
+  f: [Piece!]!
+  g: [Piece!]!
+  h: [Piece!]!
+}
+
+type Game {
+  isCheck: Boolean!
+  isCheckMate: Boolean!
+  board: Board!
+  nextPlayer: PlayerID!
+  version: Int!
+  moves: [Move]!
+}
+
+type Query {
+  game(id: String): Game @function(name: "chessinvoke-${env}")
+}
+
+type Mutation {
+  createGame: Game @function(name: "chessinvoke-${env}")
+  createMove(input: MoveInput!): Game @function(name: "chessinvoke-${env}")
+}

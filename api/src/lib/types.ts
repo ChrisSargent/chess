@@ -8,7 +8,7 @@ export type ErrorResponse = {
   code?: string;
   detail?: string;
   status: number;
-  source: "blockgraph";
+  source: "graph";
   title: string;
 };
 
@@ -30,7 +30,4 @@ type GraphQLResolverEvent = {
   prev: any;
 };
 
-export type GraphQLResolverHandler = Handler<
-  GraphQLResolverEvent,
-  AxiosResponse
->;
+export type GraphQLResolverHandler = Handler<GraphQLResolverEvent, AxiosResponse>;

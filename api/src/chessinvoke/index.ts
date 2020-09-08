@@ -2,7 +2,7 @@ import middy from "@middy/core";
 import { HTTPMethod } from "http-method-enum";
 import { AxiosRequestConfig, client, defaultMw, GraphQLResolverHandler, logger } from "../lib";
 
-const coreinvoke: GraphQLResolverHandler = async (event) => {
+const chessinvoke: GraphQLResolverHandler = async (event) => {
   let method = HTTPMethod.GET;
   const [url, objectType] = event.fieldName.split(/(?=[A-Z])/);
   console.log(objectType);
@@ -24,4 +24,4 @@ const coreinvoke: GraphQLResolverHandler = async (event) => {
   return response.data.data;
 };
 
-export const handler = logger.handler(middy(coreinvoke).use(defaultMw));
+export const handler = logger.handler(middy(chessinvoke).use(defaultMw));

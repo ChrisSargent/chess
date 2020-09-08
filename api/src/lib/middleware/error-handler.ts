@@ -9,12 +9,12 @@ const removeUndefined = (obj: any) =>
 
 // A generic server error
 const serverErrResponse: ErrorResponse = {
-  source: "blockgraph",
+  source: "graph",
   status: HttpStatus.INTERNAL_SERVER_ERROR,
   title: HttpStatus.getStatusText(HttpStatus.INTERNAL_SERVER_ERROR),
 };
 const gwTOutErrResponse: ErrorResponse = {
-  source: "blockgraph",
+  source: "graph",
   status: HttpStatus.GATEWAY_TIMEOUT,
   title: HttpStatus.getStatusText(HttpStatus.GATEWAY_TIMEOUT),
 };

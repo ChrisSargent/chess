@@ -1,0 +1,15 @@
+{
+  "projectName": "chess",
+  "version": "3.0",
+  "frontend": "javascript",
+  "javascript": {
+    "framework": "react",
+    "config": {
+      "SourceDir": "./ui/src",
+      "DistributionDir": "./ui/build",
+      "BuildCommand": "yarn build:ui",
+      "StartCommand": "yarn start:ui"
+    }
+  },
+  "providers": ["awscloudformation"]
+}

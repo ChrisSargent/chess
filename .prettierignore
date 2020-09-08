@@ -21,10 +21,10 @@ amplify/backend/*
 !amplify/backend/api
 
 amplify/backend/api/*
-!amplify/backend/api/blockgraph
+!amplify/backend/api/chess
 
-amplify/backend/api/blockgraph/*
-!amplify/backend/api/blockgraph/schema
+amplify/backend/api/chess/*
+!amplify/backend/api/chess/schema
 # End ignore
 
 aws-exports.js
