@@ -1,0 +1,60 @@
+mutation CreateContact($input: CreateContactInput!) {
+  createContact(input: $input) {
+    messages {
+      code
+      message
+    }
+    status
+    statusText
+  }
+}
+
+query AllContacts {
+  allContacts {
+    messages {
+      message
+      code
+    }
+    status
+    statusText
+    response {
+      data {
+        recordId
+        fieldData {
+          Company
+          FirstName
+          Email
+          JobTitle
+          LastName
+          Title
+          Website
+        }
+      }
+    }
+  }
+}
+
+subscription ContactAdded {
+  contactAdded {
+    messages {
+      message
+      code
+    }
+    status
+    statusText
+    response {
+      data {
+        recordId
+        fieldData {
+          Company
+          FirstName
+          Email
+          JobTitle
+          LastName
+          Title
+          Website
+        }
+      }
+    }
+  }
+}

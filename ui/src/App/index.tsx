@@ -1,58 +1,61 @@
-import React, { useEffect, useReducer } from "react";
-import { API, graphqlOperation } from "aws-amplify";
-import { createContact } from "../graphql/mutations";
-import { allContacts } from "../graphql/queries";
-import { contactAdded } from "../graphql/subscriptions";
-
-const initialState = { contacts: [] };
-const reducer = (state, action) => {
-  switch (action.type) {
-    case "QUERY":
-      return { ...state, contacts: action.contacts };
-    case "SUBSCRIPTION":
-      return { ...state, contacts: [...state.contacts, action.contact] };
-    default:
-      return state;
-  }
-};
-
-async function createNewContact() {
-  const contact = { FirstName: "React" };
-  await API.graphql(graphqlOperation(createContact, { input: contact }));
-}
+import React from "react";
+import {
+  useAllContactsQuery,
+  useContactAddedSubscription,
+  useCreateContactMutation,
+} from "../generated/types";
 
 const App = () => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [
+    createContactMutation,
+    { loading: mutationLoading, error: mutationError },
+  ] = useCreateContactMutation();
 
-  async function getData() {
-    const todoData = await API.graphql(graphqlOperation(allContacts));
-    console.log(todoData.data.allContacts.response.data);
-    dispatch({ contacts: todoData.data.allContacts.response.data, type: "QUERY" });
-  }
+  const { data: queryData, loading: queryLoading, error: queryError } = useAllContactsQuery();
+  const contactsData = queryData?.allContacts?.response.data;
 
-  useEffect(() => {
-    getData();
-    const subscription = API.graphql(graphqlOperation(contactAdded)).subscribe({
-      next: (eventData) => {
-        const contact = eventData.value.data.contactAdded;
-        dispatch({ contact, type: "SUBSCRIPTION" });
+  const {
+    data: subscribeData,
+    loading: subscribeLoading,
+    error: subscribeError,
+  } = useContactAddedSubscription();
+
+  console.log(subscribeData);
+
+  async function createNewContact() {
+    await createContactMutation({
+      variables: {
+        input: { fieldData: { FirstName: "React" } },
       },
     });
-    return () => {
-      subscription.unsubscribe();
-    };
-  }, []);
+  }
+
+  const error = mutationError || queryError || subscribeError;
+  const loading = mutationLoading || queryLoading || subscribeLoading;
+
+  console.count("render: App");
+
+  if (error) {
+    return (
+      <div>
+        <p>mutationError: {mutationError}</p>
+        <p>queryError: {queryError}</p>
+        <p>subscribeError: {subscribeError}</p>
+      </div>
+    );
+  }
 
   return (
     <div>
+      <p>{loading ? "Loading..." : "  "}</p>
       <div className="App">
         <button onClick={createNewContact} type="button">
           Add Contact
         </button>
       </div>
       <div>
-        {state?.contacts?.map((contact) => (
-          <p key={contact.recordId}>Name: {contact.fieldData.FirstName}</p>
+        {contactsData?.map((contact) => (
+          <p key={contact?.recordId}>Name: {contact?.fieldData.FirstName}</p>
         ))}
       </div>
     </div>
