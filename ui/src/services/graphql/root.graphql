@@ -1,11 +1,25 @@
 mutation CreateContact($input: CreateContactInput!) {
   createContact(input: $input) {
     messages {
-      code
       message
+      code
     }
     status
     statusText
+    response {
+      data {
+        recordId
+        fieldData {
+          Company
+          FirstName
+          Email
+          JobTitle
+          LastName
+          Title
+          Website
+        }
+      }
+    }
   }
 }
 

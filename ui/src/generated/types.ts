@@ -116,8 +116,29 @@ export type CreateContactMutation = {
     status?: Maybe<number>;
     statusText?: Maybe<string>;
     messages: Array<
-      Maybe<{ __typename: "Message"; code?: Maybe<string>; message?: Maybe<string> }>
+      Maybe<{ __typename: "Message"; message?: Maybe<string>; code?: Maybe<string> }>
     >;
+    response: {
+      __typename: "ContactsResponse";
+      data?: Maybe<
+        Array<
+          Maybe<{
+            __typename: "ContactData";
+            recordId: number;
+            fieldData: {
+              __typename: "ContactFieldData";
+              Company?: Maybe<string>;
+              FirstName?: Maybe<string>;
+              Email?: Maybe<string>;
+              JobTitle?: Maybe<string>;
+              LastName?: Maybe<string>;
+              Title?: Maybe<string>;
+              Website?: Maybe<string>;
+            };
+          }>
+        >
+      >;
+    };
   }>;
 };
 
@@ -195,11 +216,25 @@ export const CreateContactDocument = gql`
   mutation CreateContact($input: CreateContactInput!) {
     createContact(input: $input) {
       messages {
-        code
         message
+        code
       }
       status
       statusText
+      response {
+        data {
+          recordId
+          fieldData {
+            Company
+            FirstName
+            Email
+            JobTitle
+            LastName
+            Title
+            Website
+          }
+        }
+      }
     }
   }
 `;

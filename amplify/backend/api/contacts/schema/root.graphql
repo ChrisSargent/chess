@@ -4,7 +4,7 @@ type Query {
 
 type Mutation {
   createContact(input: CreateContactInput!): ContactsResponseWithMessages
-  @function(name: "contactsCreate-${env}")
+    @function(name: "contactsCreate-${env}")
 }
 
 type Subscription {
