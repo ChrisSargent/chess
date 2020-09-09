@@ -33,12 +33,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "chessinvoke",
+            "contactsCreate",
             {
               "Fn::Join": [
                 "",
                 [
-                  "chessinvoke",
+                  "contactsCreate",
                   "-",
                   {
                     "Ref": "env"
@@ -68,8 +68,8 @@
         "Layers": [],
         "Timeout": "25",
         "Code": {
-          "S3Bucket": "amplify-chess-dev-161411-deployment",
-          "S3Key": "amplify-builds/chessinvoke-6636614b4c2b646d646b-build.zip"
+          "S3Bucket": "amplify-contacts-dev-205051-deployment",
+          "S3Key": "amplify-builds/contactsCreate-46523532724f54796e61-build.zip"
         }
       }
     },
@@ -79,12 +79,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "chessLambdaRolee0a25556",
+            "contactsLambdaRolee52e1923",
             {
               "Fn::Join": [
                 "",
                 [
-                  "chessLambdaRolee0a25556",
+                  "contactsLambdaRolee52e1923",
                   "-",
                   {
                     "Ref": "env"

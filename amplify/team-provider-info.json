@@ -1,15 +1,15 @@
 {
   "dev": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-chess-dev-161411-authRole",
-      "UnauthRoleArn": "arn:aws:iam::651405476998:role/amplify-chess-dev-161411-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::651405476998:role/amplify-chess-dev-161411-authRole",
+      "AuthRoleName": "amplify-contacts-dev-205051-authRole",
+      "UnauthRoleArn": "arn:aws:iam::651405476998:role/amplify-contacts-dev-205051-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::651405476998:role/amplify-contacts-dev-205051-authRole",
       "Region": "eu-west-2",
-      "DeploymentBucketName": "amplify-chess-dev-161411-deployment",
-      "UnauthRoleName": "amplify-chess-dev-161411-unauthRole",
-      "StackName": "amplify-chess-dev-161411",
-      "StackId": "arn:aws:cloudformation:eu-west-2:651405476998:stack/amplify-chess-dev-161411/92aeff30-f1dd-11ea-832e-065bc1dc5e74",
-      "AmplifyAppId": "d1lk2x59x5q5sf"
+      "DeploymentBucketName": "amplify-contacts-dev-205051-deployment",
+      "UnauthRoleName": "amplify-contacts-dev-205051-unauthRole",
+      "StackName": "amplify-contacts-dev-205051",
+      "StackId": "arn:aws:cloudformation:eu-west-2:651405476998:stack/amplify-contacts-dev-205051/389c74b0-f204-11ea-85aa-02005ca6ac26",
+      "AmplifyAppId": "d2uhdl9xuky2m2"
     }
   }
 }

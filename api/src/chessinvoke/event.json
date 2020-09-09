@@ -1,9 +1,0 @@
-{
-  "method": "GET",
-  "fieldName": "partial",
-  "arguments": {
-    "input": {
-      "objectType": "orderBook"
-    }
-  }
-}

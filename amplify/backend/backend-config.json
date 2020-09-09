@@ -1,6 +1,6 @@
 {
   "api": {
-    "chess": {
+    "contacts": {
       "service": "AppSync",
       "providerPlugin": "awscloudformation",
       "output": {
@@ -18,7 +18,13 @@
     }
   },
   "function": {
-    "chessinvoke": {
+    "contactsGet": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": []
+    },
+    "contactsCreate": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda",

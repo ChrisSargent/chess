@@ -1,6 +1,6 @@
 projects:
-  chess:
-    schemaPath: amplify/backend/api/chess/build/schema.graphql
+  contacts:
+    schemaPath: amplify/backend/api/contacts/build/schema.graphql
     includes:
       - ui/src/graphql/**/*.ts
     excludes:
