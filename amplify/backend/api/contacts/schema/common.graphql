@@ -1,0 +1,13 @@
+type DataInfo {
+  database: String!
+  layout: String!
+  table: String!
+  totalRecordCount: Int!
+  foundCount: Int!
+  returnedCount: Int!
+}
+
+type Message {
+  code: String
+  message: String
+}

@@ -1,0 +1,10 @@
+type ContactsResponse {
+  data: [ContactData]
+  dataInfo: DataInfo
+}
+type ContactsResponseWithMessages {
+  response: ContactsResponse!
+  messages: [Message]!
+  status: Int
+  statusText: String
+}

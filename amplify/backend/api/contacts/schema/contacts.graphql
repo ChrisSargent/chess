@@ -1,0 +1,30 @@
+type ContactFieldData {
+  Website: String
+  Company: String
+  JobTitle: String
+  LastName: String
+  FirstName: String
+  Title: String
+  Email: String
+}
+
+type ContactData {
+  fieldData: ContactFieldData!
+  portalData: AWSJSON!
+  recordId: Int!
+  modId: Int!
+}
+
+input ContactFieldInput {
+  Website: String
+  Company: String
+  JobTitle: String
+  LastName: String
+  FirstName: String
+  Title: String
+  Email: String
+}
+
+input CreateContactInput {
+  fieldData: ContactFieldInput
+}

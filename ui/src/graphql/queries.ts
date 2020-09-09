@@ -2,18 +2,15 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const game = /* GraphQL */ `
-  query Game($id: String) {
-    game(id: $id) {
-      isCheck
-      isCheckMate
-      nextPlayer
-      version
-      moves {
-        gameID
-        playerID
-        version
+export const allContacts = /* GraphQL */ `
+  query AllContacts {
+    allContacts {
+      messages {
+        code
+        message
       }
+      status
+      statusText
     }
   }
 `;

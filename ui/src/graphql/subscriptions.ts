@@ -2,9 +2,9 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const createContact = /* GraphQL */ `
-  mutation CreateContact($input: CreateContactInput!) {
-    createContact(input: $input) {
+export const contactAdded = /* GraphQL */ `
+  subscription ContactAdded {
+    contactAdded {
       messages {
         code
         message
