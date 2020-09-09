@@ -1,0 +1,21 @@
+overwrite: true
+schema:
+  - amplify/backend/api/contacts/schema/*.graphql
+  - amplify/backend/api/contacts/aws.graphql
+generates:
+  ui/src/generated/types.ts:
+    documents: ui/src/services/graphql/**/*.graphql
+    config:
+      flattenGeneratedTypes: true
+      preResolveTypes: true
+      namingConvention: keep
+      transformUnderscore: true
+      onlyOperationTypes: false
+      nonOptionalTypename: true
+      withMutationFn: false
+      withMutationOptionsType: false
+      withResultType: false
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-react-apollo
