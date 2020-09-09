@@ -11,7 +11,10 @@
     "prettier": "prettier .",
     "start:api": "concurrently --raw \"amplify mock api\" \"cd api && yarn start\"",
     "start:ui": "cd ui && yarn start",
-    "codegen": "graphql-codegen --config .codegen.yml"
+    "codegen": "graphql-codegen --config .codegen.yml",
+    "clean": "yarn clean:nm && yarn clean:lock",
+    "clean:nm": "find . -type d -name \"node_modules\" -exec rm -rf '{}' +",
+    "clean:lock": "find . -type f \\( -name *.lock -o -name *-lock.json \\) -delete"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^1.17.8",

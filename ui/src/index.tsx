@@ -1,28 +1,31 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Amplify from "aws-amplify";
-import { ApolloClient, ApolloProvider, createHttpLink, InMemoryCache } from "@apollo/client";
-import { setContext } from "@apollo/client/link/context";
-import App from "./App";
+import { createAuthLink } from "aws-appsync-auth-link";
+import { createSubscriptionHandshakeLink } from "aws-appsync-subscription-link";
+import { ApolloClient, ApolloLink, ApolloProvider, HttpLink, InMemoryCache } from "@apollo/client";
+import { App } from "./App";
 import * as serviceWorker from "./serviceWorker";
-import awsconfig from "./aws-exports";
+import appSyncConfig from "./aws-exports";
 
-Amplify.configure(awsconfig);
-// For GraphQL Auth, see: https://www.apollographql.com/docs/react/networking/authentication/
-const httpLink = createHttpLink({
-  uri: awsconfig.aws_appsync_graphqlEndpoint,
-});
+const url = appSyncConfig.aws_appsync_graphqlEndpoint;
+const region = appSyncConfig.aws_appsync_region;
+const auth = {
+  apiKey: appSyncConfig.aws_appsync_apiKey,
+  type: appSyncConfig.aws_appsync_authenticationType,
+};
 
-const authLink = setContext((_, { headers }) => ({
-  headers: {
-    ...headers,
-    "x-api-key": awsconfig.aws_appsync_apiKey,
-  },
-}));
+const httpLink = new HttpLink({ uri: url });
+
+const link = ApolloLink.from([
+  // @ts-ignore
+  createAuthLink({ auth, region, url }),
+  // @ts-ignore
+  createSubscriptionHandshakeLink(url, httpLink),
+]);
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
-  link: authLink.concat(httpLink),
+  link,
 });
 
 ReactDOM.render(

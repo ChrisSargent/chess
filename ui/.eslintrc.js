@@ -96,6 +96,6 @@ module.exports = {
     "react/jsx-no-literals": "off",
   },
   settings: {
-    polyfills: ["fetch", "Number.isInteger", "Number.isNaN", "Object.entries", "Reflect", "URL"],
+    polyfills: [],
   },
 };
