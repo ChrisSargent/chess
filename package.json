@@ -6,7 +6,8 @@
   "license": "UNLICENSED",
   "private": true,
   "scripts": {
-    "amplify:chessinvoke": "cd api && yarn build chessinvoke",
+    "amplify:contactsGet": "cd api && yarn build contactsGet",
+    "amplify:contactsCreate": "cd api && yarn build contactsCreate",
     "prettier": "prettier .",
     "start:api": "concurrently --raw \"amplify mock api\" \"cd api && yarn start\"",
     "start:ui": "cd ui && yarn start"

@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-var-requires */
+
 const path = require("path");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
@@ -15,19 +19,19 @@ const configFactory = (entryDir, buildDir, isEnvProduction) => {
       rules: [
         // Disable require.ensure as it's not a standard language feature.
         { parser: { requireEnsure: false } },
-        {
-          enforce: "pre",
-          exclude,
-          test: /\.(js|ts)$/,
-          use: [
-            {
-              loader: "eslint-loader",
-              options: {
-                emitWarning: true,
-              },
-            },
-          ],
-        },
+        // {
+        //   enforce: "pre",
+        //   exclude,
+        //   test: /\.(js|ts)$/,
+        //   use: [
+        //     {
+        //       loader: "eslint-loader",
+        //       options: {
+        //         emitWarning: true,
+        //       },
+        //     },
+        //   ],
+        // },
         {
           exclude,
           loader: "babel-loader",
@@ -55,6 +59,7 @@ const configFactory = (entryDir, buildDir, isEnvProduction) => {
           {
             force: true,
             from: path.join(entryDir, "event.json"),
+            noErrorOnMissing: true,
           },
         ],
       }),
