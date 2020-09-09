@@ -4,7 +4,7 @@ import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 
 export const client = (): AxiosInstance => {
   // TODO: get token dynamically
-  const token = "f331a5c9cac01647b4293be7ace92d251cabd72ca5221bc89a8a";
+  const token = "6b17554bb93bbb45580eb85b085e6a78bee348b9d081ed5ec46d";
   const base: AxiosRequestConfig = {
     baseURL: "https://localhost/fmi/data/vLatest/databases/contacts",
     headers: {

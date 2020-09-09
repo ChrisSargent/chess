@@ -6,11 +6,27 @@ export const allContacts = /* GraphQL */ `
   query AllContacts {
     allContacts {
       messages {
-        code
         message
+        code
       }
       status
       statusText
+      response {
+        data {
+          modId
+          portalData
+          recordId
+          fieldData {
+            Company
+            FirstName
+            Email
+            JobTitle
+            LastName
+            Title
+            Website
+          }
+        }
+      }
     }
   }
 `;

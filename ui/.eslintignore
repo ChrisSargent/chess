@@ -1,0 +1,9 @@
+# General #
+##########
+build/
+coverage/
+dist/
+
+# Amplify #
+##########
+aws-exports.js
