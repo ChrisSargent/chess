@@ -1,6 +1,4 @@
-import { Logger } from "lambda-logger-node";
+import { LambdaLog } from "lambda-log";
 
-export const logger = Logger({
-  minimumLogLevel: "INFO",
-  useGlobalErrorHandler: false,
-});
+// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
+export const logger = new LambdaLog({ dev: true });

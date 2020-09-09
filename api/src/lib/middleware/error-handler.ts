@@ -1,70 +1,81 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable no-param-reassign */
 import middy from "@middy/core";
 import { AxiosError } from "axios";
 import HttpStatus from "http-status-codes";
-import { ErrorResponse } from "../types";
+import { LambdaLog } from "lambda-log";
 
-const removeUndefined = (obj: any) =>
+const removeUndefined = (obj: Record<string, any>) =>
   Object.entries(obj).reduce((a, [k, v]) => (v === undefined ? a : { ...a, [k]: v }), {});
 
 // A generic server error
-const serverErrResponse: ErrorResponse = {
-  source: "graph",
-  status: HttpStatus.INTERNAL_SERVER_ERROR,
-  title: HttpStatus.getStatusText(HttpStatus.INTERNAL_SERVER_ERROR),
+const serverErrResponse = {
+  code: HttpStatus.INTERNAL_SERVER_ERROR,
+  message: HttpStatus.getStatusText(HttpStatus.INTERNAL_SERVER_ERROR),
 };
-const gwTOutErrResponse: ErrorResponse = {
-  source: "graph",
-  status: HttpStatus.GATEWAY_TIMEOUT,
-  title: HttpStatus.getStatusText(HttpStatus.GATEWAY_TIMEOUT),
+// A gateway timeout error
+const gwTOutErrResponse = {
+  code: HttpStatus.GATEWAY_TIMEOUT,
+  message: HttpStatus.getStatusText(HttpStatus.GATEWAY_TIMEOUT),
 };
 
-export const errorHandler = (logger: any) => ({
-  onError: (handler: middy.HandlerLambda, next: middy.NextFunction) => {
-    logger.debug(handler);
-    if (!(handler.error instanceof Error)) {
+export const errorHandler: middy.Middleware<LambdaLog> = (logger) => ({
+  onError: (handler, next) => {
+    if (!logger || !(handler.error instanceof Error)) {
       return next();
     }
+
+    // HACK - logger.error not printing to console in mock mode
+    if (process.env.NODE_ENV === "development") {
+      // eslint-disable-next-line @typescript-eslint/unbound-method
+      logger.error = logger.info;
+    }
+
     try {
+      const { context, event } = handler;
       const error = handler.error as AxiosError;
+      const { baseURL, data, headers, method, params } = error.config;
+      const axiosRequest = removeUndefined({
+        baseURL,
+        data,
+        headers,
+        method,
+        params,
+      });
+      logger.options.meta = { axiosRequest, context, event };
 
       // The request was made and the server responded with a status code that falls out of the range of 2xx
       if (error.response) {
-        logger.createSubLogger("gateway_error").error(error.response.data);
-        handler.response = error.response.data;
+        const { data: respData, status, statusText } = error.response;
+        const response = {
+          ...respData,
+          status,
+          statusText,
+        };
+        logger.error("gateway_error", { response });
+        handler.response = response;
         return next();
       }
 
       // The request was made but no response was received
       if (error.request) {
-        const { baseURL, data, headers, method, params } = error.config;
-        const logMe = removeUndefined({
-          baseURL,
-          data,
-          headers,
-          method,
-          params,
-        });
-        logger.createSubLogger("gateway_timeout").error(logMe);
-
-        handler.response = { error: gwTOutErrResponse };
+        logger.error("gateway_timeout");
+        handler.response = { messages: [gwTOutErrResponse] };
         return next();
       }
+
       // Something unknown happened during function invocation that triggered an Error
-      logger.createSubLogger("function_error").error(handler.error.message);
-
-      // If response.error has already been set, leave as is
-      if (handler.response && handler.response.error) {
-        return next();
+      logger.error("function_error", { error: handler.error.message });
+      // If response.error has not already been set, set to generic error
+      if (!handler.response?.error) {
+        handler.response = { messages: [serverErrResponse] };
       }
-
-      handler.response = { error: serverErrResponse };
       return next();
-    } catch (err) {
+    } catch (error) {
       // Something happened in this function that caused an error
-      logger.createSubLogger("caught_error").error(err);
-
-      handler.response = { error: serverErrResponse };
+      logger.error("caught_error", { error });
+      handler.response = { messages: [serverErrResponse] };
       return next();
     }
   },

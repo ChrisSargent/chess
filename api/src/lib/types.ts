@@ -4,19 +4,6 @@ import { AxiosResponse } from "axios";
 
 export type { AxiosRequestConfig } from "axios";
 
-export type ErrorResponse = {
-  code?: string;
-  detail?: string;
-  status: number;
-  source: "graph";
-  title: string;
-};
-
-export type APIResponse = {
-  data?: string;
-  error?: ErrorResponse;
-};
-
 type GraphQLResolverEvent = {
   typeName: "Mutation" | "Query";
   fieldName: string;
