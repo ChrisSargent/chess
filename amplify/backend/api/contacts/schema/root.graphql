@@ -6,9 +6,11 @@ type Mutation {
   createContact(input: CreateContactInput!): ContactsResponseWithMessages
     @function(name: "contactsCreate-${env}")
   updatedContact: ContactsResponseWithMessages @function(name: "contactsGet-${env}")
+  deleteContact(recordId: Int): ContactsResponseWithMessages
+    @function(name: "contactsDelete-${env}")
 }
 
 type Subscription {
   contactAdded: ContactsResponseWithMessages
-    @aws_subscribe(mutations: ["createContact", "updatedContact"])
+    @aws_subscribe(mutations: ["createContact", "updatedContact", "deleteContact"])
 }

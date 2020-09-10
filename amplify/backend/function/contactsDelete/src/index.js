@@ -82,7 +82,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./src/contactsCreate/index.ts");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/contactsDelete/index.ts");
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -6396,15 +6396,16 @@ function wrappy (fn, cb) {
 
 /***/ }),
 
-/***/ "./src/contactsCreate/index.ts":
+/***/ "./src/contactsDelete/index.ts":
 /*!*************************************!*\
-  !*** ./src/contactsCreate/index.ts ***!
+  !*** ./src/contactsDelete/index.ts ***!
   \*************************************/
-/*! exports provided: handler */
+/*! exports provided: contactsDelete, handler */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "contactsDelete", function() { return contactsDelete; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "handler", function() { return handler; });
 /* harmony import */ var _middy_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @middy/core */ "../node_modules/@middy/core/index.js");
 /* harmony import */ var _middy_core__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_middy_core__WEBPACK_IMPORTED_MODULE_0__);
@@ -6415,19 +6416,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-const contactsCreate = async (event, context, callback) => {
+const contactsDelete = async (event, context, callback) => {
   const request = {
-    data: event.arguments.input,
-    method: http_method_enum__WEBPACK_IMPORTED_MODULE_1__["HTTPMethod"].POST,
-    url: "/layouts/contactdetails/records"
+    method: http_method_enum__WEBPACK_IMPORTED_MODULE_1__["HTTPMethod"].DELETE,
+    url: `/layouts/contactdetails/records/${event.arguments.recordId}`
   };
   const axiosClient = await Object(_lib__WEBPACK_IMPORTED_MODULE_2__["client"])();
   await axiosClient.request(request);
   return Object(_contactsGet__WEBPACK_IMPORTED_MODULE_3__["contactsGet"])(event, context, callback);
 };
-
-const handler = _middy_core__WEBPACK_IMPORTED_MODULE_0___default()(contactsCreate).use(_lib__WEBPACK_IMPORTED_MODULE_2__["defaultMw"]);
+const handler = _middy_core__WEBPACK_IMPORTED_MODULE_0___default()(contactsDelete).use(_lib__WEBPACK_IMPORTED_MODULE_2__["defaultMw"]);
 
 /***/ }),
 

@@ -8,6 +8,7 @@
   "scripts": {
     "amplify:contactsGet": "cd api && yarn build contactsGet",
     "amplify:contactsCreate": "cd api && yarn build contactsCreate",
+    "amplify:contactsDelete": "cd api && yarn build contactsDelete",
     "prettier": "prettier .",
     "start:api": "concurrently --raw \"amplify mock api\" \"cd api && yarn start\"",
     "start:ui": "cd ui && yarn start",

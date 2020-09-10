@@ -44,7 +44,7 @@ export type UpdatedContactMutation = {
 };
 
 export type DeleteContactMutationVariables = {
-  recordID?: string | null;
+  recordId?: number | null;
 };
 
 export type DeleteContactMutation = {

@@ -9,6 +9,7 @@ type GraphQLResolverEvent = {
   fieldName: string;
   arguments: {
     input: any;
+    recordId: number;
   };
   source: any;
   request: {
