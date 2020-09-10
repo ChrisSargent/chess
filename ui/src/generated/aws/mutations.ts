@@ -26,3 +26,15 @@ export const updatedContact = /* GraphQL */ `
     }
   }
 `;
+export const deleteContact = /* GraphQL */ `
+  mutation DeleteContact($recordID: ID) {
+    deleteContact(recordID: $recordID) {
+      messages {
+        code
+        message
+      }
+      status
+      statusText
+    }
+  }
+`;

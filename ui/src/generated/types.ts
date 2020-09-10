@@ -89,10 +89,15 @@ export type Mutation = {
   __typename: "Mutation";
   createContact?: Maybe<ContactsResponseWithMessages>;
   updatedContact?: Maybe<ContactsResponseWithMessages>;
+  deleteContact?: Maybe<ContactsResponseWithMessages>;
 };
 
 export type MutationcreateContactArgs = {
   input: CreateContactInput;
+};
+
+export type MutationdeleteContactArgs = {
+  recordId?: Maybe<Scalars["Int"]>;
 };
 
 export type Subscription = {
@@ -203,6 +208,40 @@ export type ContactAddedSubscriptionVariables = Exact<{ [key: string]: never }>;
 export type ContactAddedSubscription = {
   __typename: "Subscription";
   contactAdded?: Maybe<{
+    __typename: "ContactsResponseWithMessages";
+    status?: Maybe<number>;
+    statusText?: Maybe<string>;
+    messages: Array<
+      Maybe<{ __typename: "Message"; message?: Maybe<string>; code?: Maybe<string> }>
+    >;
+    response: {
+      __typename: "ContactsResponse";
+      data?: Maybe<
+        Array<
+          Maybe<{
+            __typename: "ContactData";
+            recordId: number;
+            fieldData: {
+              __typename: "ContactFieldData";
+              FirstName?: Maybe<string>;
+              Email?: Maybe<string>;
+              LastName?: Maybe<string>;
+              Title?: Maybe<string>;
+            };
+          }>
+        >
+      >;
+    };
+  }>;
+};
+
+export type DeleteContactMutationVariables = Exact<{
+  recordId: Scalars["Int"];
+}>;
+
+export type DeleteContactMutation = {
+  __typename: "Mutation";
+  deleteContact?: Maybe<{
     __typename: "ContactsResponseWithMessages";
     status?: Maybe<number>;
     statusText?: Maybe<string>;
@@ -440,3 +479,53 @@ export function useContactAddedSubscription(
   );
 }
 export type ContactAddedSubscriptionHookResult = ReturnType<typeof useContactAddedSubscription>;
+export const DeleteContactDocument = gql`
+  mutation DeleteContact($recordId: Int!) {
+    deleteContact(recordId: $recordId) {
+      messages {
+        message
+        code
+      }
+      status
+      statusText
+      response {
+        data {
+          recordId
+          fieldData {
+            FirstName
+            Email
+            LastName
+            Title
+          }
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useDeleteContactMutation__
+ *
+ * To run a mutation, you first call `useDeleteContactMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteContactMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteContactMutation, { data, loading, error }] = useDeleteContactMutation({
+ *   variables: {
+ *      recordId: // value for 'recordId'
+ *   },
+ * });
+ */
+export function useDeleteContactMutation(
+  baseOptions?: Apollo.MutationHookOptions<DeleteContactMutation, DeleteContactMutationVariables>
+) {
+  return Apollo.useMutation<DeleteContactMutation, DeleteContactMutationVariables>(
+    DeleteContactDocument,
+    baseOptions
+  );
+}
+export type DeleteContactMutationHookResult = ReturnType<typeof useDeleteContactMutation>;

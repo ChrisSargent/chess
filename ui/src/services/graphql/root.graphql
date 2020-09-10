@@ -85,3 +85,25 @@ subscription ContactAdded {
     }
   }
 }
+
+mutation DeleteContact($recordId: Int!) {
+  deleteContact(recordId: $recordId) {
+    messages {
+      message
+      code
+    }
+    status
+    statusText
+    response {
+      data {
+        recordId
+        fieldData {
+          FirstName
+          Email
+          LastName
+          Title
+        }
+      }
+    }
+  }
+}

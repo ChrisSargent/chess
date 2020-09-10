@@ -16,8 +16,11 @@ import {
   TextField,
   Toolbar,
   Typography,
+  ListItemSecondaryAction,
+  IconButton,
 } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
+import DeleteIcon from "@material-ui/icons/Delete";
 import PersonAddRoundedIcon from "@material-ui/icons/PersonAddRounded";
 import { useForm } from "react-hook-form";
 import {
@@ -25,17 +28,19 @@ import {
   useAllContactsQuery,
   useContactAddedSubscription,
   useCreateContactMutation,
+  useDeleteContactMutation,
 } from "../generated/types";
 
 export const App = () => {
   // Setup the form
   const { register, handleSubmit, reset } = useForm();
 
-  // Setup the createContactMutation
+  // Setup the createContactMutation and deleteContactMutation
   const [
     createContactMutation,
     { loading: mutationLoading, error: mutationError },
   ] = useCreateContactMutation();
+  const [deleteContactMutation] = useDeleteContactMutation();
 
   // Do the initial query and setup the subscription
   const { data: queryData, loading: queryLoading, error: queryError } = useAllContactsQuery();
@@ -48,6 +53,18 @@ export const App = () => {
     await createContactMutation({
       variables: {
         input: { fieldData },
+      },
+    });
+    reset();
+  };
+  // Run the mutation for deleting contacts
+  const handleContactDelete = async (recordId: number | undefined) => {
+    if (!recordId) {
+      return;
+    }
+    await deleteContactMutation({
+      variables: {
+        recordId,
       },
     });
     reset();
@@ -155,17 +172,28 @@ export const App = () => {
                   </ListItemIcon>
                 </ListItem>
               )}
-              {contactsData?.map((contact) => (
-                <ListItem key={contact?.recordId} divider>
-                  <ListItemAvatar>
-                    <Avatar alt={`Avatar for ${contact?.fieldData.FirstName}`} />
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary={`${contact?.fieldData.FirstName} ${contact?.fieldData.LastName}`}
-                    secondary={contact?.fieldData.Email}
-                  />
-                </ListItem>
-              ))}
+              {contactsData?.map((contact) => {
+                const { fieldData, recordId } = contact || {};
+                const { Email, FirstName, LastName, Title } = fieldData || {};
+                const fullName = [Title, FirstName, LastName].join(" ");
+                return (
+                  <ListItem key={recordId} divider>
+                    <ListItemAvatar>
+                      <Avatar alt={`Avatar for ${fullName}`} />
+                    </ListItemAvatar>
+                    <ListItemText primary={fullName} secondary={Email} />
+                    <ListItemSecondaryAction>
+                      <IconButton
+                        aria-label="delete"
+                        edge="end"
+                        onClick={() => handleContactDelete(recordId)}
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    </ListItemSecondaryAction>
+                  </ListItem>
+                );
+              })}
             </List>
           </Grid>
         </Grid>
