@@ -17,6 +17,7 @@ import {
   Toolbar,
   Typography,
 } from "@material-ui/core";
+import Alert from "@material-ui/lab/Alert";
 import PersonAddRoundedIcon from "@material-ui/icons/PersonAddRounded";
 import { useForm } from "react-hook-form";
 import {
@@ -145,6 +146,7 @@ export const App = () => {
           </Grid>
           <Grid item sm>
             <Typography variant="h6">All Contacts</Typography>
+            {queryError && <Alert severity="error">Unable to fetch data</Alert>}
             <List>
               {queryLoading && (
                 <ListItem alignItems="center">
