@@ -14,3 +14,15 @@ export const createContact = /* GraphQL */ `
     }
   }
 `;
+export const updatedContact = /* GraphQL */ `
+  mutation UpdatedContact {
+    updatedContact {
+      messages {
+        code
+        message
+      }
+      status
+      statusText
+    }
+  }
+`;

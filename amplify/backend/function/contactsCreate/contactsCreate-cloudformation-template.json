@@ -69,7 +69,7 @@
         "Timeout": "25",
         "Code": {
           "S3Bucket": "amplify-contacts-dev-205051-deployment",
-          "S3Key": "amplify-builds/contactsCreate-746e386e44697a784f39-build.zip"
+          "S3Key": "amplify-builds/contactsCreate-6d73566577566a6f3877-build.zip"
         }
       }
     },

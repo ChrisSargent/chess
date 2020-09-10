@@ -33,6 +33,19 @@ export type CreateContactMutation = {
   } | null;
 };
 
+export type UpdatedContactMutation = {
+  updatedContact: {
+    __typename: "ContactsResponseWithMessages";
+    messages: Array<{
+      __typename: "Message";
+      code: string | null;
+      message: string | null;
+    } | null>;
+    status: number | null;
+    statusText: string | null;
+  } | null;
+};
+
 export type AllContactsQuery = {
   allContacts: {
     __typename: "ContactsResponseWithMessages";
