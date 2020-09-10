@@ -7,7 +7,8 @@ export const contactsGet: GraphQLResolverHandler = async () => {
     method: HTTPMethod.GET,
     url: "/layouts/contactdetails/records",
   };
-  const response = await client().request(request);
+  const axiosClient = await client();
+  const response = await axiosClient.request(request);
   return response.data;
 };
 

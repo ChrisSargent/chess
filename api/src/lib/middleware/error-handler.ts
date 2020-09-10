@@ -3,7 +3,7 @@
 /* eslint-disable no-param-reassign */
 import middy from "@middy/core";
 import { AxiosError } from "axios";
-import HttpStatus from "http-status-codes";
+import { GATEWAY_TIMEOUT, getReasonPhrase, INTERNAL_SERVER_ERROR } from "http-status-codes";
 import { LambdaLog } from "lambda-log";
 
 const removeUndefined = (obj: Record<string, any>) =>
@@ -11,13 +11,13 @@ const removeUndefined = (obj: Record<string, any>) =>
 
 // A generic server error
 const serverErrResponse = {
-  code: HttpStatus.INTERNAL_SERVER_ERROR,
-  message: HttpStatus.getStatusText(HttpStatus.INTERNAL_SERVER_ERROR),
+  code: INTERNAL_SERVER_ERROR,
+  message: getReasonPhrase(INTERNAL_SERVER_ERROR),
 };
 // A gateway timeout error
 const gwTOutErrResponse = {
-  code: HttpStatus.GATEWAY_TIMEOUT,
-  message: HttpStatus.getStatusText(HttpStatus.GATEWAY_TIMEOUT),
+  code: GATEWAY_TIMEOUT,
+  message: getReasonPhrase(GATEWAY_TIMEOUT),
 };
 
 export const errorHandler: middy.Middleware<LambdaLog> = (logger) => ({

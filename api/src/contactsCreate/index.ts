@@ -9,7 +9,8 @@ const contactsCreate: GraphQLResolverHandler = async (event, context, callback) 
     method: HTTPMethod.POST,
     url: "/layouts/contactdetails/records",
   };
-  await client().request(request);
+  const axiosClient = await client();
+  await axiosClient.request(request);
   return contactsGet(event, context, callback);
 };
 
