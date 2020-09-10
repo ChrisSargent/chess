@@ -10,13 +10,10 @@ mutation CreateContact($input: CreateContactInput!) {
       data {
         recordId
         fieldData {
-          Company
           FirstName
           Email
-          JobTitle
           LastName
           Title
-          Website
         }
       }
     }
@@ -35,13 +32,10 @@ mutation UpdatedContacts {
       data {
         recordId
         fieldData {
-          Company
           FirstName
           Email
-          JobTitle
           LastName
           Title
-          Website
         }
       }
     }
@@ -60,13 +54,10 @@ query AllContacts {
       data {
         recordId
         fieldData {
-          Company
           FirstName
           Email
-          JobTitle
           LastName
           Title
-          Website
         }
       }
     }
@@ -85,13 +76,10 @@ subscription ContactAdded {
       data {
         recordId
         fieldData {
-          Company
           FirstName
           Email
-          JobTitle
           LastName
           Title
-          Website
         }
       }
     }

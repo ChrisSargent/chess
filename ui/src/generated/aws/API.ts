@@ -7,9 +7,6 @@ export type CreateContactInput = {
 };
 
 export type ContactFieldInput = {
-  Website?: string | null;
-  Company?: string | null;
-  JobTitle?: string | null;
   LastName?: string | null;
   FirstName?: string | null;
   Title?: string | null;

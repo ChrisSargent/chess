@@ -1,5 +1,6 @@
 import { gql } from "@apollo/client";
 import * as Apollo from "@apollo/client";
+
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 /** All built-in and custom scalars, mapped to their actual values */
@@ -40,9 +41,6 @@ export type Message = {
 
 export type ContactFieldData = {
   __typename: "ContactFieldData";
-  Website?: Maybe<Scalars["String"]>;
-  Company?: Maybe<Scalars["String"]>;
-  JobTitle?: Maybe<Scalars["String"]>;
   LastName?: Maybe<Scalars["String"]>;
   FirstName?: Maybe<Scalars["String"]>;
   Title?: Maybe<Scalars["String"]>;
@@ -58,9 +56,6 @@ export type ContactData = {
 };
 
 export type ContactFieldInput = {
-  Website?: Maybe<Scalars["String"]>;
-  Company?: Maybe<Scalars["String"]>;
-  JobTitle?: Maybe<Scalars["String"]>;
   LastName?: Maybe<Scalars["String"]>;
   FirstName?: Maybe<Scalars["String"]>;
   Title?: Maybe<Scalars["String"]>;
@@ -127,13 +122,10 @@ export type CreateContactMutation = {
             recordId: number;
             fieldData: {
               __typename: "ContactFieldData";
-              Company?: Maybe<string>;
               FirstName?: Maybe<string>;
               Email?: Maybe<string>;
-              JobTitle?: Maybe<string>;
               LastName?: Maybe<string>;
               Title?: Maybe<string>;
-              Website?: Maybe<string>;
             };
           }>
         >
@@ -162,13 +154,10 @@ export type UpdatedContactsMutation = {
             recordId: number;
             fieldData: {
               __typename: "ContactFieldData";
-              Company?: Maybe<string>;
               FirstName?: Maybe<string>;
               Email?: Maybe<string>;
-              JobTitle?: Maybe<string>;
               LastName?: Maybe<string>;
               Title?: Maybe<string>;
-              Website?: Maybe<string>;
             };
           }>
         >
@@ -197,13 +186,10 @@ export type AllContactsQuery = {
             recordId: number;
             fieldData: {
               __typename: "ContactFieldData";
-              Company?: Maybe<string>;
               FirstName?: Maybe<string>;
               Email?: Maybe<string>;
-              JobTitle?: Maybe<string>;
               LastName?: Maybe<string>;
               Title?: Maybe<string>;
-              Website?: Maybe<string>;
             };
           }>
         >
@@ -232,13 +218,10 @@ export type ContactAddedSubscription = {
             recordId: number;
             fieldData: {
               __typename: "ContactFieldData";
-              Company?: Maybe<string>;
               FirstName?: Maybe<string>;
               Email?: Maybe<string>;
-              JobTitle?: Maybe<string>;
               LastName?: Maybe<string>;
               Title?: Maybe<string>;
-              Website?: Maybe<string>;
             };
           }>
         >
@@ -260,13 +243,10 @@ export const CreateContactDocument = gql`
         data {
           recordId
           fieldData {
-            Company
             FirstName
             Email
-            JobTitle
             LastName
             Title
-            Website
           }
         }
       }
@@ -313,13 +293,10 @@ export const UpdatedContactsDocument = gql`
         data {
           recordId
           fieldData {
-            Company
             FirstName
             Email
-            JobTitle
             LastName
             Title
-            Website
           }
         }
       }
@@ -368,13 +345,10 @@ export const AllContactsDocument = gql`
         data {
           recordId
           fieldData {
-            Company
             FirstName
             Email
-            JobTitle
             LastName
             Title
-            Website
           }
         }
       }
@@ -428,13 +402,10 @@ export const ContactAddedDocument = gql`
         data {
           recordId
           fieldData {
-            Company
             FirstName
             Email
-            JobTitle
             LastName
             Title
-            Website
           }
         }
       }

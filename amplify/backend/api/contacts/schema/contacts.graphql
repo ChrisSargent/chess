@@ -1,7 +1,4 @@
 type ContactFieldData {
-  Website: String
-  Company: String
-  JobTitle: String
   LastName: String
   FirstName: String
   Title: String
@@ -16,9 +13,6 @@ type ContactData {
 }
 
 input ContactFieldInput {
-  Website: String
-  Company: String
-  JobTitle: String
   LastName: String
   FirstName: String
   Title: String
