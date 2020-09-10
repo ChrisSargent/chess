@@ -45,10 +45,8 @@ export const App = () => {
   const loading = mutationLoading || queryLoading || subscribeLoading;
 
   // Setup contactsData - will use the initial query data first and then the subscription data
-  let contactsData = queryData?.allContacts?.response.data;
-  if (subscribeData) {
-    contactsData = subscribeData.contactAdded?.response.data;
-  }
+  const contactsData =
+    subscribeData?.contactAdded?.response.data || queryData?.allContacts?.response.data;
 
   return (
     <div>

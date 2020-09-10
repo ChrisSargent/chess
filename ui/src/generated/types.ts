@@ -1,6 +1,5 @@
 import { gql } from "@apollo/client";
 import * as Apollo from "@apollo/client";
-
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 /** All built-in and custom scalars, mapped to their actual values */
@@ -94,6 +93,7 @@ export type Query = {
 export type Mutation = {
   __typename: "Mutation";
   createContact?: Maybe<ContactsResponseWithMessages>;
+  updatedContact?: Maybe<ContactsResponseWithMessages>;
 };
 
 export type MutationcreateContactArgs = {
@@ -112,6 +112,41 @@ export type CreateContactMutationVariables = Exact<{
 export type CreateContactMutation = {
   __typename: "Mutation";
   createContact?: Maybe<{
+    __typename: "ContactsResponseWithMessages";
+    status?: Maybe<number>;
+    statusText?: Maybe<string>;
+    messages: Array<
+      Maybe<{ __typename: "Message"; message?: Maybe<string>; code?: Maybe<string> }>
+    >;
+    response: {
+      __typename: "ContactsResponse";
+      data?: Maybe<
+        Array<
+          Maybe<{
+            __typename: "ContactData";
+            recordId: number;
+            fieldData: {
+              __typename: "ContactFieldData";
+              Company?: Maybe<string>;
+              FirstName?: Maybe<string>;
+              Email?: Maybe<string>;
+              JobTitle?: Maybe<string>;
+              LastName?: Maybe<string>;
+              Title?: Maybe<string>;
+              Website?: Maybe<string>;
+            };
+          }>
+        >
+      >;
+    };
+  }>;
+};
+
+export type UpdatedContactsMutationVariables = Exact<{ [key: string]: never }>;
+
+export type UpdatedContactsMutation = {
+  __typename: "Mutation";
+  updatedContact?: Maybe<{
     __typename: "ContactsResponseWithMessages";
     status?: Maybe<number>;
     statusText?: Maybe<string>;
@@ -265,6 +300,61 @@ export function useCreateContactMutation(
   );
 }
 export type CreateContactMutationHookResult = ReturnType<typeof useCreateContactMutation>;
+export const UpdatedContactsDocument = gql`
+  mutation UpdatedContacts {
+    updatedContact {
+      messages {
+        message
+        code
+      }
+      status
+      statusText
+      response {
+        data {
+          recordId
+          fieldData {
+            Company
+            FirstName
+            Email
+            JobTitle
+            LastName
+            Title
+            Website
+          }
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useUpdatedContactsMutation__
+ *
+ * To run a mutation, you first call `useUpdatedContactsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdatedContactsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updatedContactsMutation, { data, loading, error }] = useUpdatedContactsMutation({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useUpdatedContactsMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdatedContactsMutation,
+    UpdatedContactsMutationVariables
+  >
+) {
+  return Apollo.useMutation<UpdatedContactsMutation, UpdatedContactsMutationVariables>(
+    UpdatedContactsDocument,
+    baseOptions
+  );
+}
+export type UpdatedContactsMutationHookResult = ReturnType<typeof useUpdatedContactsMutation>;
 export const AllContactsDocument = gql`
   query AllContacts {
     allContacts {

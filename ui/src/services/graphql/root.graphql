@@ -23,6 +23,31 @@ mutation CreateContact($input: CreateContactInput!) {
   }
 }
 
+mutation UpdatedContacts {
+  updatedContact {
+    messages {
+      message
+      code
+    }
+    status
+    statusText
+    response {
+      data {
+        recordId
+        fieldData {
+          Company
+          FirstName
+          Email
+          JobTitle
+          LastName
+          Title
+          Website
+        }
+      }
+    }
+  }
+}
+
 query AllContacts {
   allContacts {
     messages {
