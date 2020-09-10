@@ -3,6 +3,8 @@ import ReactDOM from "react-dom";
 import { createAuthLink } from "aws-appsync-auth-link";
 import { createSubscriptionHandshakeLink } from "aws-appsync-subscription-link";
 import { ApolloClient, ApolloLink, ApolloProvider, HttpLink, InMemoryCache } from "@apollo/client";
+import { CssBaseline } from "@material-ui/core";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import { App } from "./App";
 import * as serviceWorker from "./serviceWorker";
 import appSyncConfig from "./aws-exports";
@@ -28,10 +30,46 @@ const client = new ApolloClient({
   link,
 });
 
+const fontFamily = [
+  "-apple-system",
+  "BlinkMacSystemFont",
+  '"Segoe UI"',
+  '"Helvetica Neue"',
+  "Arial",
+  "sans-serif",
+  '"Apple Color Emoji"',
+  '"Segoe UI Emoji"',
+  '"Segoe UI Symbol"',
+].join(",");
+
+const theme = createMuiTheme({
+  overrides: {
+    MuiTypography: {
+      root: {
+        fontFamily,
+      },
+    },
+  },
+  palette: {
+    primary: {
+      main: "#1167b1",
+    },
+    secondary: {
+      main: "#03254c",
+    },
+  },
+  typography: {
+    fontFamily,
+  },
+});
+
 ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <App />
+      <CssBaseline />
+      <ThemeProvider theme={theme}>
+        <App />
+      </ThemeProvider>
     </ApolloProvider>
   </React.StrictMode>,
   document.getElementById("root")
