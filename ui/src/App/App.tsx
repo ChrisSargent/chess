@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import React from "react";
+import React, { useState } from "react";
 import {
   AppBar,
   Avatar,
@@ -8,16 +8,16 @@ import {
   CircularProgress,
   Container,
   Grid,
+  IconButton,
   List,
   ListItem,
   ListItemAvatar,
   ListItemIcon,
+  ListItemSecondaryAction,
   ListItemText,
   TextField,
   Toolbar,
   Typography,
-  ListItemSecondaryAction,
-  IconButton,
 } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -34,13 +34,14 @@ import {
 export const App = () => {
   // Setup the form
   const { register, handleSubmit, reset } = useForm();
+  const [deletingId, setDeletingId] = useState<number>();
 
   // Setup the createContactMutation and deleteContactMutation
   const [
     createContactMutation,
     { loading: mutationLoading, error: mutationError },
   ] = useCreateContactMutation();
-  const [deleteContactMutation] = useDeleteContactMutation();
+  const [deleteContactMutation, { loading: deleteLoading }] = useDeleteContactMutation();
 
   // Do the initial query and setup the subscription
   const { data: queryData, loading: queryLoading, error: queryError } = useAllContactsQuery();
@@ -57,11 +58,13 @@ export const App = () => {
     });
     reset();
   };
+
   // Run the mutation for deleting contacts
   const handleContactDelete = async (recordId: number | undefined) => {
     if (!recordId) {
       return;
     }
+    setDeletingId(recordId);
     await deleteContactMutation({
       variables: {
         recordId,
@@ -188,7 +191,11 @@ export const App = () => {
                         edge="end"
                         onClick={() => handleContactDelete(recordId)}
                       >
-                        <DeleteIcon />
+                        {deleteLoading && deletingId === recordId ? (
+                          <CircularProgress color="inherit" size={22} />
+                        ) : (
+                          <DeleteIcon />
+                        )}
                       </IconButton>
                     </ListItemSecondaryAction>
                   </ListItem>
