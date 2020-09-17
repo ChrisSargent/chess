@@ -101,3 +101,35 @@ Zero or Many `Moves` to one `Game`
 # Initial Architecture & Sequences
 
 ![Initial Architecture](./architecture.jpg)
+
+# Algebraic Notation Summary
+
+See: https://en.wikipedia.org/wiki/Algebraic_notation_(chess)
+
+## Pieces
+
+- K for king
+- Q for queen
+- R for rook
+- B for bishop
+- N for knight
+- Blank for pawns
+
+## Board
+
+- Vertical column = `files`, (a to h)
+- Horizontal rows = `ranks`, (1 to 8)
+
+## Moves
+
+Each move of a piece is indicated by the piece's uppercase letter, plus the coordinate of the destination square. For example, Be5 (move a bishop to e5), Nf3 (move a knight to f3). For pawn moves, a letter indicating pawn is not used, only the destination square is given. For example, c5 (move a pawn to c5).
+
+### Captures
+
+When a piece makes a capture, an "x" is inserted immediately before the destination square.
+
+## Structure
+
+Spaces just for readability
+
+- `[Piece] [x === capture] file rank`
