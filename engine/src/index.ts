@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable no-underscore-dangle */
 import { Chess, ShortMove } from "chess.js";
-import { constructGameObj, GameObj } from "./utils";
+import { constructResultNewGame, constructResultWithMove, GameObj, MoveObj, Result } from "./utils";
 
 // Exports from this file will be available on the window object
 interface FM {
@@ -21,19 +21,18 @@ type Context = {
 
 type Response = {
   ctx: Context;
-  game: GameObj | null;
+  game: GameObj;
+  move: MoveObj | null;
 };
 
 // eslint-disable-next-line @typescript-eslint/ban-types
-type Wrapper = (func: Function) => (ctx: string, cb: string, ...args: any[]) => void;
+type Wrapper = (func: Function) => (ctx: string, cb: string, ...args: string[]) => void;
 
-// eslint-disable-next-line @typescript-eslint/ban-types
 const withFM: Wrapper = (func) => (ctx, cb, ...args) => {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const game = func(...args) as GameObj | null;
+  const result = func(...args) as Result;
   const response: Response = {
     ctx: JSON.parse(ctx) as Context,
-    game,
+    ...result,
   };
   const responseAsString = JSON.stringify(response);
   console.log(response);
@@ -42,19 +41,19 @@ const withFM: Wrapper = (func) => (ctx, cb, ...args) => {
   }
 };
 
-export const _newGame = (): GameObj => {
+export const _newGame = (): Result => {
   const game = new Chess();
-  return constructGameObj(game);
+  return constructResultNewGame(game);
 };
 
-const _move = (move: ShortMove, fen?: string): GameObj | null => {
-  const game = new Chess(fen);
-  const newMove = game.move(move);
-  if (!newMove) {
-    return null;
-  }
-  return constructGameObj(game);
+export const _newMove = (move: string, fen?: string): Result => {
+  console.log(fen);
+  const game = new Chess(fen || undefined);
+  const parsedMove = JSON.parse(move) as ShortMove;
+  console.log(parsedMove);
+  const newMove = game.move(parsedMove);
+  return constructResultWithMove(game, newMove);
 };
 
 export const newGame = withFM(_newGame);
-export const move = withFM(_move);
+export const newMove = withFM(_newMove);

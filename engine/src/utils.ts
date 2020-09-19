@@ -1,4 +1,4 @@
-import { ChessInstance } from "chess.js";
+import { ChessInstance, Move } from "chess.js";
 
 export enum GameOverReason {
   checkmate = "checkmate",
@@ -8,19 +8,43 @@ export enum GameOverReason {
   threefold = "threefold repetition",
 }
 
-export enum Turn {
+export enum Color {
   b = "black",
   w = "white",
+}
+
+enum Piece {
+  p = "pawn",
+  n = "knight",
+  b = "bishop",
+  r = "rook",
+  q = "queen",
+  k = "king",
 }
 
 export type GameObj = {
   ascii: string;
   fen: string;
   gameover: GameOverReason | null;
-  turn: Turn;
+  inCheck: boolean;
+  turn: Color;
 };
 
-const expandTurn = (turn: "b" | "w"): Turn => Turn[turn];
+export type MoveObj =
+  | "invalid"
+  | {
+      captured: Piece | null;
+      piece: Piece;
+      san: string;
+      turn: Color;
+    };
+
+export type Result = {
+  game: GameObj;
+  move: MoveObj | null;
+};
+
+const expandTurn = (turn: "b" | "w"): Color => Color[turn];
 
 export const isGameOver = (game: ChessInstance): GameOverReason | null => {
   if (game.in_checkmate()) return GameOverReason.checkmate;
@@ -31,9 +55,28 @@ export const isGameOver = (game: ChessInstance): GameOverReason | null => {
   return null;
 };
 
-export const constructGameObj = (game: ChessInstance): GameObj => ({
-  ascii: game.ascii(),
-  fen: game.fen(),
-  turn: expandTurn(game.turn()),
-  gameover: isGameOver(game),
+const constructResult = (game: ChessInstance, move: MoveObj | null): Result => ({
+  game: {
+    ascii: game.ascii(),
+    fen: game.fen(),
+    gameover: isGameOver(game),
+    inCheck: game.in_check(),
+    turn: expandTurn(game.turn()),
+  },
+  move,
 });
+
+export const constructResultNewGame = (game: ChessInstance): Result => constructResult(game, null);
+
+export const constructResultWithMove = (game: ChessInstance, move: Move | null): Result => {
+  let moveObj: MoveObj = "invalid";
+  if (move) {
+    moveObj = {
+      captured: move.captured ? Piece[move.captured] : null,
+      turn: Color[move.color],
+      piece: Piece[move.piece],
+      san: move.san,
+    };
+  }
+  return constructResult(game, moveObj);
+};
