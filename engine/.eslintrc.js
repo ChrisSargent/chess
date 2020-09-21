@@ -1,5 +1,6 @@
 // Be sure to clear the node_modules cache after making changes here
 module.exports = {
+  root: true,
   env: {
     browser: true,
   },
@@ -11,6 +12,7 @@ module.exports = {
     "prettier",
     "prettier/@typescript-eslint",
   ],
+  plugins: ["sort-keys-fix"],
   overrides: [
     {
       files: ["*.ts"],
@@ -19,19 +21,17 @@ module.exports = {
         "plugin:@typescript-eslint/recommended-requiring-type-checking",
       ],
       rules: {
-        "no-unused-vars": "off",
-        "@typescript-eslint/no-unused-vars": "error",
-        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-unused-vars": "off", // false positives. fixed by experimental rule
+        "@typescript-eslint/no-unused-vars-experimental": ["error"],
       },
+      parserOptions: {
+        project: "tsconfig.json",
+        tsconfigRootDir: __dirname,
+      },
+      parser: "@typescript-eslint/parser",
+      plugins: ["@typescript-eslint"],
     },
   ],
-  parserOptions: {
-    project: "tsconfig.json",
-    tsconfigRootDir: __dirname,
-  },
-  parser: "@typescript-eslint/parser",
-  plugins: ["@typescript-eslint"],
-  root: true,
   rules: {
     "no-console": "off",
 
@@ -61,7 +61,7 @@ module.exports = {
     ],
 
     // Sort keys in objects etc
-    "sort-keys-fix": ["error", "asc", { caseSensitive: false, natural: true }],
+    "sort-keys-fix/sort-keys-fix": ["error", "asc", { caseSensitive: false, natural: true }],
   },
   settings: {
     polyfills: [],
