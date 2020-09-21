@@ -33,7 +33,7 @@
   },
   "scripts": {
     "start": "webpack-dev-server --open",
-    "build": "webpack",
+    "build": "NODE_ENV=production webpack",
     "test": "jest --watch",
     "commit:test": "jest",
     "eslint": "eslint . --ext .js,.ts,.jsx,.tsx",

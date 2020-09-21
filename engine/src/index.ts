@@ -35,7 +35,6 @@ const withFM: Wrapper = (func) => (ctx, cb, ...args) => {
     ...result,
   };
   const responseAsString = JSON.stringify(response);
-  console.log(response);
   if (window.FileMaker?.PerformScript) {
     window.FileMaker.PerformScript(cb, responseAsString);
   }
@@ -47,13 +46,22 @@ export const _newGame = (): Result => {
 };
 
 export const _newMove = (move: string, fen?: string): Result => {
-  console.log(fen);
   const game = new Chess(fen || undefined);
   const parsedMove = JSON.parse(move) as ShortMove;
-  console.log(parsedMove);
   const newMove = game.move(parsedMove);
+  return constructResultWithMove(game, newMove);
+};
+
+export const _autoPlay = (fen?: string): Result => {
+  const game = new Chess(fen);
+  const moves = game.moves();
+  const move = moves[Math.floor(Math.random() * moves.length)];
+  const newMove = game.move(move);
   return constructResultWithMove(game, newMove);
 };
 
 export const newGame = withFM(_newGame);
 export const newMove = withFM(_newMove);
+export const autoPlay = withFM(_autoPlay);
+
+console.log("Chess Engine is Running");

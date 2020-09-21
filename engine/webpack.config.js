@@ -1,13 +1,14 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const template = require("./template");
 
 const configFactory = () => {
   const exclude = /node_modules/;
   const isEnvProduction = process.env.NODE_ENV === "production";
 
   return {
-    devtool: isEnvProduction ? "source-map" : "cheap-module-source-map",
+    devtool: isEnvProduction ? "none" : "cheap-module-source-map",
     devServer: {
       contentBase: "./build",
     },
@@ -57,7 +58,14 @@ const configFactory = () => {
       libraryTarget: "window",
       path: path.resolve(__dirname, "./build"),
     },
-    plugins: [new CleanWebpackPlugin(), new HtmlWebpackPlugin()],
+    plugins: [
+      new CleanWebpackPlugin(),
+      new HtmlWebpackPlugin({
+        inject: false,
+        title: "Chess Engine",
+        templateContent: template,
+      }),
+    ],
     resolve: {
       extensions: [".mjs", ".ts", ".tsx", ".js", ".json"],
     },

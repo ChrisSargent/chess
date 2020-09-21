@@ -1,4 +1,4 @@
-import { ChessInstance, Move } from "chess.js";
+import { ChessInstance, Move, Square } from "chess.js";
 
 export enum GameOverReason {
   checkmate = "checkmate",
@@ -34,6 +34,8 @@ export type MoveObj =
   | "invalid"
   | {
       captured: Piece | null;
+      from: Square;
+      to: Square;
       piece: Piece;
       san: string;
       turn: Color;
@@ -73,9 +75,11 @@ export const constructResultWithMove = (game: ChessInstance, move: Move | null):
   if (move) {
     moveObj = {
       captured: move.captured ? Piece[move.captured] : null,
-      turn: Color[move.color],
+      from: move.from,
       piece: Piece[move.piece],
       san: move.san,
+      to: move.to,
+      turn: Color[move.color],
     };
   }
   return constructResult(game, moveObj);
