@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import Chessboard from "chessboardjsx";
 import "reset-css";
+import "./index.css";
 
 declare global {
   interface Window {
@@ -10,11 +11,11 @@ declare global {
 }
 
 const Chess = () => {
-  const search = window.location.search;
+  const { search } = window.location;
   const params = new URLSearchParams(search);
   const positionFromURL = params.get("position");
 
-  const [position, setPosition] = useState(positionFromURL || "");
+  const [position, setPosition] = useState(positionFromURL || "__BOARD_POSITION__");
   window.setBoardPosition = setPosition;
 
   return (

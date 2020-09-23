@@ -4,8 +4,10 @@
 
 const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
 const CircularDependencyPlugin = require("circular-dependency-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 const SentryCliPlugin = require("@sentry/webpack-plugin");
 const paths = require("react-scripts/config/paths");
+const template = require("./template");
 // eslint-disable-next-line import/no-extraneous-dependencies
 
 const bundleAnalyzerPlugin = new BundleAnalyzerPlugin();
@@ -35,9 +37,16 @@ const eslintEmitWarnings = () => (config) => {
   return config;
 };
 
+const inlineHtmlPlugin = new HtmlWebpackPlugin({
+  inject: false,
+  templateContent: template,
+  title: "Chess Engine",
+});
+
 module.exports = {
   bundleAnalyzerPlugin,
   circularDependencyPlugin,
   eslintEmitWarnings,
+  inlineHtmlPlugin,
   sentryCliPlugin,
 };
