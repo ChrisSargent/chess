@@ -11,7 +11,6 @@ module.exports = override(
   // Because AirBNB eslint always emits errors which can be annoying, switch the webpack eslint loader to only display warnings instead
   overrides.eslintEmitWarnings(),
   addWebpackPlugin(overrides.circularDependencyPlugin),
-  addWebpackPlugin(overrides.configPlugin),
   analyze && addWebpackPlugin(overrides.bundleAnalyzerPlugin),
   hasSentry && addWebpackPlugin(overrides.sentryCliPlugin),
   adjustWorkbox((wb) =>

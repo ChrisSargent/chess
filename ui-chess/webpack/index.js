@@ -5,20 +5,14 @@
 const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
 const CircularDependencyPlugin = require("circular-dependency-plugin");
 const SentryCliPlugin = require("@sentry/webpack-plugin");
-const CONFIG = JSON.stringify(require("config"));
 const paths = require("react-scripts/config/paths");
 // eslint-disable-next-line import/no-extraneous-dependencies
-const webpack = require("webpack");
 
 const bundleAnalyzerPlugin = new BundleAnalyzerPlugin();
 
 const circularDependencyPlugin = new CircularDependencyPlugin({
   exclude: /node_modules/,
   failOnError: false,
-});
-
-const configPlugin = new webpack.DefinePlugin({
-  CONFIG,
 });
 
 const sentryCliPlugin = new SentryCliPlugin({
@@ -44,7 +38,6 @@ const eslintEmitWarnings = () => (config) => {
 module.exports = {
   bundleAnalyzerPlugin,
   circularDependencyPlugin,
-  configPlugin,
   eslintEmitWarnings,
   sentryCliPlugin,
 };
