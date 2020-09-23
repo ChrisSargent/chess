@@ -29,7 +29,8 @@
     "packages": [
       "api",
       "engine",
-      "ui"
+      "ui",
+      "ui-chess"
     ]
   }
 }

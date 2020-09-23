@@ -1,5 +1,5 @@
 {
-  "name": "@stickypixel/ui",
+  "name": "@stickypixel/ui-chess",
   "version": "0.1.0",
   "private": true,
   "sideEffects": false,
@@ -13,16 +13,10 @@
     "eslint:pret": "eslint --print-config .eslintrc | eslint-config-prettier-check"
   },
   "dependencies": {
-    "@apollo/client": "^3.2.0",
-    "@material-ui/core": "^4.11.0",
-    "@material-ui/icons": "^4.9.1",
-    "@material-ui/lab": "^4.0.0-alpha.56",
-    "apollo-client": "^2.6.10",
-    "aws-appsync-auth-link": "^2.0.3",
-    "aws-appsync-subscription-link": "^2.2.1",
-    "react": "~16.13.1",
-    "react-dom": "~16.13.1",
-    "react-hook-form": "^6.8.4"
+    "chessboardjsx": "^2.4.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "reset-css": "^5.0.1"
   },
   "devDependencies": {
     "@sentry/webpack-plugin": "~1.12.0",
